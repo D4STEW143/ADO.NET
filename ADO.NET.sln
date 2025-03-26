@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO.NET", "ADO.NET\ADO.NET.csproj", "{CB316946-717A-4B7C-B7E9-028E1AC3E1C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesConnector", "MoviesConnector\MoviesConnector.csproj", "{50582D73-D886-46BA-857D-1205682115BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieForms", "MovieForms\MovieForms.csproj", "{FB30C155-55C0-4961-B2F8-F117A3372903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{50582D73-D886-46BA-857D-1205682115BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50582D73-D886-46BA-857D-1205682115BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50582D73-D886-46BA-857D-1205682115BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB30C155-55C0-4961-B2F8-F117A3372903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB30C155-55C0-4961-B2F8-F117A3372903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB30C155-55C0-4961-B2F8-F117A3372903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB30C155-55C0-4961-B2F8-F117A3372903}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

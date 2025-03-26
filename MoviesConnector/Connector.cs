@@ -39,19 +39,13 @@ namespace MoviesConnector
         }
         public void Select(string fields, string tables, string condition = "")
         {
-            //1. Создаем подключение к базе
-            //SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-            //2.Создаем команду, которую хотим выполнить на Сервере
             string cmd = $"SELECT {fields} FROM {tables}";
             if (condition != "") cmd += $" WHERE {condition}";
 
-
             SqlCommand command = new SqlCommand(cmd, connection);
-            //3. Получаем результаты запроса с Сервера
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
 
-            //4.Обрабатываем результаты запроса
             if (reader.HasRows)
             {
                 Border(reader.FieldCount);
@@ -63,7 +57,6 @@ namespace MoviesConnector
                 Border(reader.FieldCount);
                 while (reader.Read())
                 {
-                    //Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         Console.Write(reader[i].ToString().PadRight(PADDING));
@@ -72,8 +65,7 @@ namespace MoviesConnector
                 }
             }
 
-            Border(reader.FieldCount);
-            //5.Закрываем поток и соединение с сервером
+            //Border(reader.FieldCount);
             reader.Close();
             connection.Close();
         }
