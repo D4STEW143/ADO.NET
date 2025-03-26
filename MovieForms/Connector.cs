@@ -43,5 +43,45 @@ namespace MovieForms
             adapter.Fill(result);
             return result;
         }
+
+        public void InsertDataToDirectors( string first_name, string last_name)
+        {
+            string condition = $" last_name=N'{last_name}' AND first_name=N'{first_name}'";
+            string query =
+                $"INSERT Directors(first_name, last_name) VALUES (N'{first_name}', N'{last_name}')";
+            string cmd = $"IF NOT EXISTS (SELECT director_id FROM Directors WHERE {condition}) BEGIN {query} END";
+            Console.WriteLine(cmd);
+            SqlCommand command = new SqlCommand(cmd, connection);
+            Console.WriteLine(query);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        
+        public void InsertDataToMovies(string title, string release_date, string director_id)
+        {
+            string condition = $" title=N'{title}' AND release_date=N'{release_date}'";
+            string query =
+                $"INSERT Movies(title, release_date, director) VALUES (N'{title}', N'{release_date}', N'{director_id}')";
+            string cmd = $"IF NOT EXISTS (SELECT movie_id FROM Movies WHERE {condition}) BEGIN {query} END";
+            Console.WriteLine(cmd);
+            SqlCommand command = new SqlCommand(cmd, connection);
+            Console.WriteLine(query);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteData(string item_id, string table_name)
+        {
+            string tName_correction = table_name.Remove(table_name.Length - 1, 1);//удаляет последнюю букву слова, чтобы было правильное написание
+            string exact_table_id = string.Concat(tName_correction.ToLower(), "_id");
+            string query = $"DELETE FROM {table_name} WHERE {exact_table_id} = {item_id}";
+            Console.WriteLine(query);
+            SqlCommand command = new SqlCommand (query, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }

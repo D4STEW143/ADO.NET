@@ -47,6 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlterRow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlterRow.Designer.cs">
+      <DependentUpon>AlterRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertToTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertToTable.Designer.cs">
+      <DependentUpon>InsertToTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Connector.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -56,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="InsertToTable.resx">
+      <DependentUpon>InsertToTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
