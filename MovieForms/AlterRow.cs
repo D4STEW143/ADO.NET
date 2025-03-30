@@ -12,13 +12,14 @@ namespace MovieForms
 {
     public partial class AlterRow : Form
     {
+        
         public AlterRow()
         {
             InitializeComponent();
         }
-        public AlterRow(): this()
-        {
-
-        }
+        //public AlterRow(): this()
+        //{
+        //
+        //}
     }
 }

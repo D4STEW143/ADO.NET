@@ -27,9 +27,12 @@ namespace MovieForms
             {
                 CB_Table_Picker.Items.Add(connector.GetTablesNames()[i]);
             }
-            AllocConsole();
         }
         //--------------------------Debug console--------------------------------
+        private void CHKBX_Show_Console_CheckedChanged(object sender, EventArgs e)
+        {
+            bool show = CHKBX_Show_Console.Checked ? AllocConsole() : FreeConsole();
+        }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             FreeConsole();
@@ -41,13 +44,11 @@ namespace MovieForms
         //-----------------------------------------------------------------------
         private string GetRowId()
         {
-            string rowId = dataGridViewMain.CurrentRow.Cells[0].Value.ToString();
-            return rowId;
+            return dataGridViewMain.CurrentRow.Cells[0].Value.ToString();
         }
 
         private void CB_Table_Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (CB_Table_Picker.SelectedItem == null) BTN_Add_Data_To_Table.Visible = false;
             switch (CB_Table_Picker.SelectedIndex)
             {
                 case 0:
@@ -83,7 +84,7 @@ namespace MovieForms
         {
             string i = GetRowId();
             Console.WriteLine(i);
-
         }
+
     }
 }

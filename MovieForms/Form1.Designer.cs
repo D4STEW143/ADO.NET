@@ -38,6 +38,7 @@
             this.BTN_Add_Data_To_Table = new System.Windows.Forms.Button();
             this.BTN_Delete_Row = new System.Windows.Forms.Button();
             this.BTN_Alter_row = new System.Windows.Forms.Button();
+            this.CHKBX_Show_Console = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,11 +147,23 @@
             this.BTN_Alter_row.UseVisualStyleBackColor = true;
             this.BTN_Alter_row.Click += new System.EventHandler(this.BTN_Alter_row_Click);
             // 
+            // CHKBX_Show_Console
+            // 
+            this.CHKBX_Show_Console.AutoSize = true;
+            this.CHKBX_Show_Console.Location = new System.Drawing.Point(813, 337);
+            this.CHKBX_Show_Console.Name = "CHKBX_Show_Console";
+            this.CHKBX_Show_Console.Size = new System.Drawing.Size(120, 17);
+            this.CHKBX_Show_Console.TabIndex = 8;
+            this.CHKBX_Show_Console.Text = "Показать консоль";
+            this.CHKBX_Show_Console.UseVisualStyleBackColor = true;
+            this.CHKBX_Show_Console.CheckedChanged += new System.EventHandler(this.CHKBX_Show_Console_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 384);
+            this.Controls.Add(this.CHKBX_Show_Console);
             this.Controls.Add(this.BTN_Alter_row);
             this.Controls.Add(this.BTN_Delete_Row);
             this.Controls.Add(this.BTN_Add_Data_To_Table);
@@ -179,6 +192,7 @@
         private System.Windows.Forms.Button BTN_Add_Data_To_Table;
         private System.Windows.Forms.Button BTN_Delete_Row;
         private System.Windows.Forms.Button BTN_Alter_row;
+        private System.Windows.Forms.CheckBox CHKBX_Show_Console;
     }
 }
 
