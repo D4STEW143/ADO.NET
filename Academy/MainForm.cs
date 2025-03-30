@@ -15,15 +15,48 @@ namespace Academy
     public partial class MainForm : Form
     {
         Connector connector;
+
+        Query[] queries = new Query[]
+            {
+                new Query("*", "Students"),
+                new Query(
+                    "group_id,group_name,COUNT(stud_id) AS students_count,direction_name",
+                    "Students,Groups,Directions",
+                    "direction=direction_id AND [group]=group_id",
+					"group_id,group_name,direction_name"),
+                new Query("*", "Directions"),
+                new Query("*", "Disciplines"),
+                new Query("*", "Teachers"),
+            };
+        DataGridView[] tables;
+        string[] statusMessages = new string[]
+            {
+                "Колличество студентов: ",
+                "Колличество групп: ",
+                "Колличество направлений: ",
+                "Колличество дисциплин: ",
+                "Колличество преподавателей: ",
+            };
         public MainForm() {
             InitializeComponent();
+
+            tables = new DataGridView[]{
+                dgvStudents,
+                dgvGroups,
+                dgvDirections,
+                dgvDisciplines,
+                dgvTeachers
+            };
+
             connector = new Connector(ConfigurationManager.ConnectionStrings["VPD_311_Import"].ConnectionString);
             dgvStudents.DataSource = connector.Select("*", "Students");
             statusStripCountLabel.Text = $"Количество студентов: {dgvStudents.RowCount - 1}";
         }
 
 		private void tabControl_SelectedIndexChanged(object sender, EventArgs e) {
-
-		}
-	}
+            int i = tabControl.SelectedIndex;
+            tables[i].DataSource = connector.Select(queries[i].Colums, queries[i].Tables, queries[i].Condition, queries[i].GroupBy);
+            statusStripCountLabel.Text = $"{statusMessages[i]} {tables[i].RowCount - 1}";
+        }
+    }
 }
