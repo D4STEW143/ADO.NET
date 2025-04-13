@@ -18,7 +18,7 @@ namespace Academy
 
         Query[] queries = new Query[]
             {
-                new Query("*", "Students"),
+                new Query("*", "Students JOIN Groups ON([group]=group_id) JOIN Directions ON(direction=direction_id)"),
                 new Query(
                     "group_id,group_name,COUNT(stud_id) AS students_count,direction_name",
                     "Students,Groups,Directions",
@@ -84,19 +84,22 @@ namespace Academy
             LoadTab();
         }
 
-		private void cbGroupsDirection_SelectedIndexChanged(object sender, EventArgs e) {
+		private void ComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             int i = tabControl.SelectedIndex;
-            Query query = new Query(queries[1]);
+            Query query = new Query(queries[i]);
 			Console.WriteLine(query.Condition);
             string tab_name = (sender as ComboBox).Name;
             string field_name = tab_name.Substring(Array.FindLastIndex<char>(tab_name.ToCharArray(), Char.IsUpper));
 			Console.WriteLine(field_name);
             string member_name = $"d_{field_name.ToLower()}s";
             Dictionary<string, int> source = this.GetType().GetField(member_name).GetValue(this) as Dictionary<string, int>;
-			query.Condition += $" AND {field_name.ToLower()} = {d_directions[(sender as ComboBox).SelectedItem.ToString()]}";
+            if (query.Condition != "") query.Condition += " AND";
+            query.Condition += $" [{field_name.ToLower()}] = {source[(sender as ComboBox).SelectedItem.ToString()]}";
             LoadTab(query);
 			Console.WriteLine((sender as ComboBox).Name);
 			Console.WriteLine(e);
 		}
+
+		
 	}
 }
