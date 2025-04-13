@@ -19,6 +19,12 @@ namespace Academy
 			Condition = condition;
 			GroupBy = groupBy;
 		}
+		public Query(Query other) { 
+			this.Colums = other.Colums;
+			this.Tables = other.Tables;
+			this.Condition = other.Condition;
+			this.GroupBy = other.GroupBy;
+		}
 
 	}
 }

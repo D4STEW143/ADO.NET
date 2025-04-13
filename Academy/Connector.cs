@@ -45,6 +45,24 @@ namespace Academy
             connection.Close();
             return table;
         }
+        public Dictionary<string, int> GetDictionary(string table) {
+            Dictionary<string, int> dictionary = null;
+            string id_collum = table.ToLower().Remove(table.Length - 1) + "_id";
+            string name_collum = table.ToLower().Remove(table.Length-1, 1) + "_name";
+            string cmd = $"SELECT {name_collum},{id_collum} FROM {table}";
+            SqlCommand command = new SqlCommand (cmd, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows){
+                dictionary = new Dictionary<string, int>();
+                while (reader.Read()) {
+                    dictionary[reader[0].ToString()] = Convert.ToInt32(reader[1]);
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return dictionary;
+        }
         [DllImport("kernel32.dll")]
         public static extern bool AllocConsole();
         [DllImport("kernel32.dll")]

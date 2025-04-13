@@ -24,8 +24,17 @@ namespace Academy
                     "Students,Groups,Directions",
                     "direction=direction_id AND [group]=group_id",
 					"group_id,group_name,direction_name"),
-                new Query("*", "Directions"),
-                new Query("*", "Disciplines"),
+                new Query(
+					@"direction_name,
+                    COUNT(DISTINCT group_id) AS N'Количество групп',
+                    COUNT(stud_id) AS N'Количество студентов'",
+					@"Students
+                    JOIN Groups ON ([group] = group_id)
+                    RIGHT JOIN Directions ON (direction = direction_id)",
+                    "",
+					"direction_name"), //Tables
+
+				new Query("*", "Disciplines"),
                 new Query("*", "Teachers"),
             };
         DataGridView[] tables;
@@ -37,6 +46,9 @@ namespace Academy
                 "Колличество дисциплин: ",
                 "Колличество преподавателей: ",
             };
+        //////////////////////////////////////////////////
+        public Dictionary<string, int> d_directions;
+        public Dictionary<string, int> d_groups;
         public MainForm() {
             InitializeComponent();
 
@@ -51,12 +63,40 @@ namespace Academy
             connector = new Connector(ConfigurationManager.ConnectionStrings["VPD_311_Import"].ConnectionString);
             dgvStudents.DataSource = connector.Select("*", "Students");
             statusStripCountLabel.Text = $"Количество студентов: {dgvStudents.RowCount - 1}";
+
+            d_directions = connector.GetDictionary("Directions");
+            d_groups = connector.GetDictionary("Groups");
+            cbStudentsGroup.Items.AddRange(d_groups.Select(g => g.Key.ToString()).ToArray());
+            cbStudentsDirection.Items.AddRange(d_directions.Select(d => d.Key.ToString()).ToArray());
+            cbGroupsDirection.Items.AddRange(d_directions.Select(d => d.Key.ToString()).ToArray());
+            
         }
 
-		private void tabControl_SelectedIndexChanged(object sender, EventArgs e) {
+        void LoadTab(Query query = null) {
             int i = tabControl.SelectedIndex;
-            tables[i].DataSource = connector.Select(queries[i].Colums, queries[i].Tables, queries[i].Condition, queries[i].GroupBy);
+            if (query == null) query = queries[i];
+            tables[i].DataSource = connector.Select(query.Colums, query.Tables, query.Condition, query.GroupBy);
             statusStripCountLabel.Text = $"{statusMessages[i]} {tables[i].RowCount - 1}";
         }
-    }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e) {
+            //int i = tabControl.SelectedIndex;
+            LoadTab();
+        }
+
+		private void cbGroupsDirection_SelectedIndexChanged(object sender, EventArgs e) {
+            int i = tabControl.SelectedIndex;
+            Query query = new Query(queries[1]);
+			Console.WriteLine(query.Condition);
+            string tab_name = (sender as ComboBox).Name;
+            string field_name = tab_name.Substring(Array.FindLastIndex<char>(tab_name.ToCharArray(), Char.IsUpper));
+			Console.WriteLine(field_name);
+            string member_name = $"d_{field_name.ToLower()}s";
+            Dictionary<string, int> source = this.GetType().GetField(member_name).GetValue(this) as Dictionary<string, int>;
+			query.Condition += $" AND {field_name.ToLower()} = {d_directions[(sender as ComboBox).SelectedItem.ToString()]}";
+            LoadTab(query);
+			Console.WriteLine((sender as ComboBox).Name);
+			Console.WriteLine(e);
+		}
+	}
 }
