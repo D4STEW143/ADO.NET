@@ -23,13 +23,36 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.cbGroups = new System.Windows.Forms.ComboBox();
+			this.cbDirections = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
+			// 
+			// cbGroups
+			// 
+			this.cbGroups.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbGroups.FormattingEnabled = true;
+			this.cbGroups.Location = new System.Drawing.Point(52, 45);
+			this.cbGroups.Name = "cbGroups";
+			this.cbGroups.Size = new System.Drawing.Size(268, 21);
+			this.cbGroups.TabIndex = 0;
+			// 
+			// cbDirections
+			// 
+			this.cbDirections.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbDirections.FormattingEnabled = true;
+			this.cbDirections.Location = new System.Drawing.Point(477, 45);
+			this.cbDirections.Name = "cbDirections";
+			this.cbDirections.Size = new System.Drawing.Size(283, 21);
+			this.cbDirections.TabIndex = 1;
+			this.cbDirections.SelectedIndexChanged += new System.EventHandler(this.cbDirections_SelectedIndexChanged);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.cbDirections);
+			this.Controls.Add(this.cbGroups);
 			this.Name = "MainForm";
 			this.Text = "DataSet";
 			this.ResumeLayout(false);
@@ -37,6 +60,9 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.ComboBox cbGroups;
+		private System.Windows.Forms.ComboBox cbDirections;
 	}
 }
 
