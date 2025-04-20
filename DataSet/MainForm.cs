@@ -22,7 +22,7 @@ namespace AcademyDataSet {
 			InitializeComponent();
 			CONNECTION_STRING = ConfigurationManager.ConnectionStrings["VPD_311_Import"].ConnectionString;
 			connection = new SqlConnection(CONNECTION_STRING);
-			AllocConsole();
+			AllocConsole(); 
 			Console.WriteLine(CONNECTION_STRING);
 
 			/////////////////////////////
